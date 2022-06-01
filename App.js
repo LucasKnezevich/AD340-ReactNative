@@ -6,7 +6,7 @@ const App = () => {
     <View style ={styles.container}>
       <Text style = {styles.title}>AD340 - Lucas Knezevich</Text>
       <Text style = {styles.pageDescription}>
-        Here is some information about my app!{"\n"}This app is built using React Native.{"\n"}These buttons will eventually lead you to different views.
+        Here is some information about my app!{"\n"}This app is built using React Native.{"\n"}These buttons will eventually lead to different views.
       </Text>
       <FlatList
         data={[
