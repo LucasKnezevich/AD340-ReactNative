@@ -1,27 +1,33 @@
 import React from "react";
-import { Text, View, FlatList, TouchableOpacity, StyleSheet } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 
 const App = () => {
   return (
     <View style ={styles.container}>
       <Text style = {styles.title}>AD340 - Lucas Knezevich</Text>
       <Text style = {styles.pageDescription}>
-        Here is some information about my app!{"\n"}This app is built using React Native.{"\n"}These buttons will eventually lead to different views.
+        Here is some information about my app!{"\n"}This app is built using React Native.{"\n"}Some of these buttons lead to stuff.
       </Text>
       <FlatList
         data={[
-          {key: 'Button 1'},
+          {key: 'People'},
           {key: 'Button 2'},
           {key: 'Button 3'},
           {key: 'Button 4'},
           {key: 'Button 5'},
           {key: 'Button 6'},
         ]} 
-        renderItem = {({item}) => <TouchableOpacity style={styles.button} title={item.key}><Text style={styles.buttonText}>{item.key}</Text></TouchableOpacity>}>
+        renderItem = {({item}) => <TouchableOpacity style={styles.button} title={item.key} onPress={() => Alert.alert("\"" + item.key + "\"" + " button pressed.")}>
+            <Text style={styles.buttonText}>{item.key}</Text>
+          </TouchableOpacity>}>
 
       </FlatList>
     </View>
   )
+}
+
+const buttonHandler = () => {
+
 }
 
 const styles = StyleSheet.create({
@@ -54,6 +60,7 @@ const styles = StyleSheet.create({
   },
   buttonText: {
     fontWeight: '500',
+    textAlign: "center"
   }
 });
 
