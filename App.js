@@ -1,34 +1,69 @@
 import React from "react";
 import { Text, View, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import { NavigationContainer } from "@react-navigation/native";
+import { createNativeStackNavigator } from "@react-navigation/native-stack";
+
+const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <View style ={styles.container}>
-      <Text style = {styles.title}>AD340 - Lucas Knezevich</Text>
-      <Text style = {styles.pageDescription}>
-        Here is some information about my app!{"\n"}This app is built using React Native.{"\n"}Some of these buttons lead to stuff.
-      </Text>
-      <FlatList
-        data={[
-          {key: 'People'},
-          {key: 'Button 2'},
-          {key: 'Button 3'},
-          {key: 'Button 4'},
-          {key: 'Button 5'},
-          {key: 'Button 6'},
-        ]} 
-        renderItem = {({item}) => <TouchableOpacity style={styles.button} title={item.key} onPress={() => Alert.alert("\"" + item.key + "\"" + " button pressed.")}>
-            <Text style={styles.buttonText}>{item.key}</Text>
-          </TouchableOpacity>}>
-
-      </FlatList>
-    </View>
+    <NavigationContainer>
+      <Stack.Navigator>
+        <Stack.Screen name="Home" component={HomeScreen} options={{headerShown: false}}/>
+        <Stack.Screen name="People" component={People} />
+        <Stack.Screen name="Person Detail" component={PersonDetail} />
+      </Stack.Navigator>
+    </NavigationContainer>
   )
 }
 
-const buttonHandler = () => {
 
-}
+// VIEWS
+const HomeScreen = ({ navigation }) => {
+  return (
+    <View style={styles.container}>
+        <Text style={styles.title}>AD340 - Lucas Knezevich</Text>
+        <Text style={styles.pageDescription}>
+          Here is some information about my app!{"\n"}This app is built using React Native.{"\n"}Some of these buttons lead to stuff.
+        </Text>
+        <TouchableOpacity onPress={() => navigation.navigate('People')}><Text>People</Text></TouchableOpacity>
+        <FlatList
+          data={[
+            { key: 'People' },
+            { key: 'Button 2' },
+            { key: 'Button 3' },
+            { key: 'Button 4' },
+            { key: 'Button 5' },
+            { key: 'Button 6' },
+          ]}
+          renderItem={({ item }) => <TouchableOpacity style={styles.button} title={item.key} onPress={() => Alert.alert("\"" + item.key + "\"" + " button pressed.")}>
+            <Text style={styles.buttonText}>{item.key}</Text>
+          </TouchableOpacity>}>
+
+        </FlatList>
+      </View>
+  )
+};
+
+const People = ({ navigation }) => {
+
+
+  
+  return (
+    <View style={styles.container}>
+      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Person Detail')}><Text style={styles.buttonText}>Person Details</Text></TouchableOpacity>
+    </View>
+  )
+};
+
+const PersonDetail = ({ navigation }) => {
+  return (
+    <View>
+
+    </View>
+  )
+};
+
 
 const styles = StyleSheet.create({
   container: {
