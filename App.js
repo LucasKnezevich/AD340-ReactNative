@@ -2,6 +2,7 @@ import React from "react";
 import { Text, View, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
+import { useEffect } from "react/cjs/react.production.min";
 
 const Stack = createNativeStackNavigator();
 
@@ -47,7 +48,7 @@ const HomeScreen = ({ navigation }) => {
 
 const People = ({ navigation }) => {
 
-
+  const people = getPeopleData();
   
   return (
     <View style={styles.container}>
@@ -63,6 +64,15 @@ const PersonDetail = ({ navigation }) => {
     </View>
   )
 };
+
+
+const getPeopleData = () => {
+  return fetch('https://fakerapi.it/api/v1/users?_quantity=10')
+    .then((response) => response.json())
+    .then((json) => { return json.data; })
+    .catch((error) => { console.log(error); })
+}
+
 
 
 const styles = StyleSheet.create({
