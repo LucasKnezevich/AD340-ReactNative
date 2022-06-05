@@ -1,8 +1,7 @@
-import React from "react";
-import { Text, View, FlatList, TouchableOpacity, StyleSheet, Alert } from 'react-native';
+import React, { useState, useEffect } from "react";
+import { Text, View, FlatList, TouchableOpacity, StyleSheet, Alert, ActivityIndicator } from 'react-native';
 import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
-import { useEffect } from "react/cjs/react.production.min";
 
 const Stack = createNativeStackNavigator();
 
@@ -48,10 +47,44 @@ const HomeScreen = ({ navigation }) => {
 
 const People = ({ navigation }) => {
 
-  const people = getPeopleData();
+  const [data, setData] = useState([]);
+  const [isLoading, setLoading] = useState(true);
+  const [debug, setDebug] = useState("");
+  
+  const getPeopleData = async () => {
+    try {
+      const response = await fetch('https://fakerapi.it/api/v1/users?_quantity=10');
+      const json = await response.json();
+      setData(json.data);
+    } catch (error) {
+      console.log(error);
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  useEffect(() => {
+    getPeopleData();
+    setDebug("Get data called.");
+    console.log(data);
+  }, []);
   
   return (
     <View style={styles.container}>
+      {isLoading ? <ActivityIndicator style={styles.activityIndicator}/> : (
+        <>
+          <Text>Testing!</Text>
+          <Text>{debug}</Text>
+          <Text>Name: {data[0].firstname} {data[0].lastname}</Text>
+          <FlatList
+          data={data}
+          // keyExtractor={({ id }, index) => id} 
+          renderItem={({ item }) => {
+            <Text style={{padding: 100}}>{item.firstname}</Text>
+          }}
+          />
+        </>
+      )}
       <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Person Detail')}><Text style={styles.buttonText}>Person Details</Text></TouchableOpacity>
     </View>
   )
@@ -65,13 +98,6 @@ const PersonDetail = ({ navigation }) => {
   )
 };
 
-
-const getPeopleData = () => {
-  return fetch('https://fakerapi.it/api/v1/users?_quantity=10')
-    .then((response) => response.json())
-    .then((json) => { return json.data; })
-    .catch((error) => { console.log(error); })
-}
 
 
 
@@ -106,6 +132,9 @@ const styles = StyleSheet.create({
   buttonText: {
     fontWeight: '500',
     textAlign: "center"
+  },
+  activityIndicator: {
+    margin: 50,
   }
 });
 
