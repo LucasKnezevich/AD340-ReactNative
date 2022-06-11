@@ -27,7 +27,6 @@ const HomeScreen = ({ navigation }) => {
       <Text style={styles.pageDescription}>
         Here is some information about my app!{"\n"}This app is built using React Native.{"\n"}Some of these buttons lead to stuff.
       </Text>
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('People')}><Text style={styles.buttonText}>People</Text></TouchableOpacity>
       <FlatList
         data={[
           { key: 'People' },
@@ -39,7 +38,7 @@ const HomeScreen = ({ navigation }) => {
         ]}
         keyExtractor={item => item.key}
         renderItem={({ item }) =>
-          <TouchableOpacity style={styles.button} title={item.key} onPress={() => Alert.alert("\"" + item.key + "\"" + " button pressed.")}>
+          <TouchableOpacity style={styles.button} title={item.key} onPress={() => item.key == 'People' ? navigation.navigate('People') : Alert.alert("\"" + item.key + "\"" + " button pressed.")}>
             <Text style={styles.buttonText}>{item.key}</Text>
           </TouchableOpacity>}>
 
