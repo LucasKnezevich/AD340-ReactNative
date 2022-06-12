@@ -42,6 +42,7 @@ const styles = StyleSheet.create({
   },
   pageDescription: {
     textAlign: 'center',
+    fontSize: 20,
     marginHorizontal: 10,
     marginBottom: 40,
     fontStyle: 'italic'
@@ -50,13 +51,15 @@ const styles = StyleSheet.create({
     marginBottom: 10,
     paddingHorizontal: 50,
     // width: '80%',
-    height: 44,
+    // height: 44,
     backgroundColor: '#d685ff',
     borderRadius: 5,
     alignContent: 'center',
     justifyContent: 'center'
   },
   buttonText: {
+    margin: 16,
+    fontSize: 30,
     fontWeight: '500',
     textAlign: "center"
   },
