@@ -5,13 +5,16 @@ const People = ({ navigation }) => {
 
   const [people, setPeople] = useState([]);
   const [isLoading, setLoading] = useState(true);
+  const[testData, setTestData] = useState([]);
 
   useEffect(() => {
-    fetch('https://fakerapi.it/api/v1/users?_quantity=2')
+    fetch('https://fakerapi.it/api/v1/users?_quantity=50')
     .then(response => response.json())
     .then(json => {
       setPeople(json.data)
+      setTestData(json)
       console.log(people)
+      console.log(testData)
     })
     .catch(error => console.log(error))
     .finally(() => setLoading(false));
@@ -21,26 +24,18 @@ const People = ({ navigation }) => {
 
   return (
     <View style={styles.container}>
-      
       {isLoading ? <ActivityIndicator style={styles.activityIndicator} /> : (
-        <>
-          <Text style={{ margin: 10 }} >{people[0].firstname} {people[0].lastname}  |  {people[0].email}</Text>
           <FlatList 
-            style={{ margin: 10, width: 300, borderWidth: 1 }}
+          style={styles.peopleList}
             data={people}
             keyExtractor={(item) => item.id}
-            renderItem={({ item }) => {
-              <TouchableOpacity styles={styles.button} title={item.id} onPress={() => navigation.navigate('Person Detail', {person: item})}>
-                <Text style={styles.buttonText}>{item.firstname} {item.lastname}</Text>
+            renderItem={({ item }) => 
+              <TouchableOpacity styles={styles.person} title={item.id} onPress={() => navigation.navigate('Person Detail', {person: item})}>
+                <Text style={styles.personText}>{item.firstname} {item.lastname}</Text>
               </TouchableOpacity>
-            }}
+            }
           />
-        </>
       )}
-
-      <TouchableOpacity style={styles.button} onPress={() => navigation.navigate('Person Detail', {person: people[0]})}>
-        <Text style={styles.buttonText}>Person Details</Text>
-      </TouchableOpacity>
     </View>
   )
 };
@@ -53,7 +48,11 @@ const styles = StyleSheet.create({
     alignItems: "center",
     // backgroundColor: '#343036',
   },
-  button: {
+  peopleList: {
+    margin: 10,
+    width: '99%'
+  },
+  person: {
     marginBottom: 10,
     paddingHorizontal: 50,
     // width: '80%',
@@ -63,9 +62,12 @@ const styles = StyleSheet.create({
     alignContent: 'center',
     justifyContent: 'center'
   },
-  buttonText: {
+  personText: {
+    margin: 4,
     fontWeight: '500',
-    textAlign: "center"
+    fontSize: 26,
+    textAlign: "center",
+    color: '#121212'
   },
   activityIndicator: {
     margin: 50,

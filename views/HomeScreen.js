@@ -22,7 +22,6 @@ const HomeScreen = ({ navigation }) => {
           <TouchableOpacity style={styles.button} title={item.key} onPress={() => item.key == 'People' ? navigation.navigate('People') : Alert.alert("\"" + item.key + "\"" + " button pressed.")}>
             <Text style={styles.buttonText}>{item.key}</Text>
           </TouchableOpacity>}>
-
       </FlatList>
     </View>
   )
