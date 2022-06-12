@@ -32,21 +32,26 @@ const PersonDetail = ({ navigation, route }) => {
 const styles = StyleSheet.create({
   personDetailContainer: {
     marginTop: 10,
-    alignItems: "center"
+    alignItems: "center",
+    color: '#121212'
   },
   personDetailFieldHeader: {
     fontWeight: 'bold',
+    fontSize: 24,
     marginBottom: 1,
-    textAlign: "center"
+    color: '#121212'
   },
   personDetailFieldBody: {
+    fontSize: 22,
     marginBottom: 20,
-    textAlign: "center"
+    color: '#454444'
   },
   personImage: {
     width: '90%',
     height: 200,
-    marginVertical: 20
+    marginVertical: 20,
+    borderColor: 'black',
+    borderWidth: 1
   }
 });
 

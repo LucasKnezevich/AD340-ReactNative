@@ -49,7 +49,6 @@ const styles = StyleSheet.create({
     // backgroundColor: '#343036',
   },
   peopleList: {
-    margin: 10,
     width: '99%'
   },
   person: {
