@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { Text, View, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator } from 'react-native';
+import { Text, View, FlatList, TouchableOpacity, StyleSheet, ActivityIndicator, Alert } from 'react-native';
 
 const People = ({ navigation }) => {
 
@@ -7,7 +7,7 @@ const People = ({ navigation }) => {
   const [isLoading, setLoading] = useState(true);
 
   useEffect(() => {
-    fetch('https://fakerapi.it/api/v1/users?_quantity=20')
+    fetch('https://fakerapi.it/api/v1/users?_quantity=2')
     .then(response => response.json())
     .then(json => {
       setPeople(json.data)
@@ -17,16 +17,18 @@ const People = ({ navigation }) => {
     .finally(() => setLoading(false));
   }, []);
 
+  console.log(people)
+
   return (
     <View style={styles.container}>
       
       {isLoading ? <ActivityIndicator style={styles.activityIndicator} /> : (
         <>
           <Text style={{ margin: 10 }} >{people[0].firstname} {people[0].lastname}  |  {people[0].email}</Text>
-          <FlatList
+          <FlatList 
             style={{ margin: 10, width: 300, borderWidth: 1 }}
             data={people}
-            // keyExtractor={({id}, index) => id}
+            keyExtractor={(item) => item.id}
             renderItem={({ item }) => {
               <TouchableOpacity styles={styles.button} title={item.id} onPress={() => navigation.navigate('Person Detail', {person: item})}>
                 <Text style={styles.buttonText}>{item.firstname} {item.lastname}</Text>
